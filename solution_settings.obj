@@ -1,0 +1,5 @@
+i18nDataSource:"db:/svy_framework/i18n_messages",
+modulesNames:"mod_dialog,svy_utilities",
+onErrorMethodID:"-1",
+typeid:43,
+uuid:"6370664c-0ab5-46cb-84d5-ac850b06f2f2"
