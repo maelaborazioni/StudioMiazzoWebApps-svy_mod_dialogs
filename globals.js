@@ -1022,27 +1022,32 @@ function svy_mod_showFormInDialog(_form, _Xwindow, _Ywindow, _Wwindow, _Hwindow,
 }
 
 /**
- *	@param {JSEvent} _event
- * 
+ * @param {JSEvent} _event
  *
  * @properties={typeid:24,uuid:"EEBCA54A-71AE-44E5-A33D-695B625216C2"}
  */
 function svy_mod_closeForm(_event)
 {
 	var _formname =  _event.getFormName() || _event.data['formname'];
-	var _context = forms[_formname].controller.getFormContext()
+	var _context = forms[_formname].controller.getFormContext();
 	/** @type {String} */
-	var _window = _context.getValue(1,1)
-	if(application.getWindow(_window))
+	var _window = _context.getValue(1,1);
+	var _jswindow = application.getWindow(_window);
+	if(_jswindow)
 	{
-		var _windowObject = application.getWindow(_window)
-		_windowObject.hide()
-		
-		if(_window != 'infoDialog') //infoDialog is reused
+		if(_jswindow.hide())
 		{
-			_windowObject.destroy()			
-		}		
+			//infoDialog is reused
+			if(_jswindow == 'infoDialog')
+				return;
+			
+			_jswindow.destroy();						
+		}
+		else
+			application.output('Can\'t hide the window : ' + _formname);
 	}
+	else
+		application.output('Can\'t get the window to close : ' + _formname);
 }
 
 /**
